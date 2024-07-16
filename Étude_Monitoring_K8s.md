@@ -10,9 +10,9 @@ Ce document a pour objectif de présenter une étude de marché sur les différe
 
 Pour une infrastructure Kubernetes, il est souvent préférable d'utiliser des programmes de monitoring spécifiquement conçus pour s'intégrer de manière optimale avec Kubernetes. Ces outils sont adaptés pour gérer les spécificités des environnements conteneurisés et offrent des fonctionnalités avancées pour le monitoring des pods, des services, des nœuds, et des clusters Kubernetes.
 
-### Pourquoi se concentrer sur Prometheus + Grafana, Datadog et Sysdig?
+### Pourquoi se concentrer sur Prometheus + Grafana, Datadog, Sysdig et cAdvisor ?
 
-Ces trois solutions sont les plus recommandées pour les infrastructures Kubernetes en raison de leur intégration native, de leur flexibilité et de leur popularité dans la communauté DevOps.
+Ces quatre solutions sont les plus recommandées pour les infrastructures Kubernetes en raison de leur intégration native, de leur flexibilité et de leur popularité dans la communauté DevOps.
 
 **Autres solutions de monitoring pour Kubernetes** :
 - **New Relic** : Bonnes fonctionnalités de monitoring et APM, mais coût élevé.
@@ -38,8 +38,6 @@ Ces trois solutions sont les plus recommandées pour les infrastructures Kuberne
 - Complexité initiale : Peut nécessiter une certaine courbe d'apprentissage pour la configuration initiale
 - Maintenance : Nécessite une gestion et une maintenance continues
 - Scalabilité : Nécessite des configurations supplémentaires (comme Thanos) pour le stockage long terme et le scaling horizontal
-
-## Choix du Meilleur Abonnement de Ceux Payant
 
 ### Datadog
 
@@ -81,11 +79,11 @@ Sysdig est une solution de monitoring et de sécurité conçue pour les conteneu
 
 **Sysdig Monitor**
 - **Standard Plan** :
-  - $20 par hôte par mois
+  - Il faut demander un devis personnalisé sur leur site.
   - Fonctionnalités : Monitoring de l'infrastructure et des applications, tableaux de bord personnalisables, alertes de base, intégrations avec des outils DevOps, rétention des données à court terme
 
 - **Enterprise Plan** :
-  - $30 par hôte par mois
+  - Il faut demander un devis personnalisé sur leur site.
   - Fonctionnalités : Toutes les fonctionnalités du plan Standard, monitoring avancé pour Kubernetes, rétention des données à long terme, alertes avancées, intégration avec des outils de sécurité et de conformité
 
 ### Pourquoi Sysdig Monitor Enterprise Plan ?
@@ -93,23 +91,60 @@ Sysdig est une solution de monitoring et de sécurité conçue pour les conteneu
 Le **Sysdig Monitor Enterprise Plan** a été choisi comme la meilleure option payante pour les raisons suivantes :
 - Offre un monitoring avancé spécifiquement conçu pour Kubernetes, ce qui est crucial pour une infrastructure K8s.
 - Inclut des fonctionnalités de sécurité et de conformité robustes.
-- Bien que légèrement plus coûteux que Datadog, il fournit une solution tout-en-un sans nécessiter des modules complémentaires pour la sécurité.
+- Bien que les prix ne soient pas spécifiés, il fournit une solution tout-en-un sans nécessiter des modules complémentaires pour la sécurité.
 - Rétention des données à long terme et alertes avancées basées sur des politiques.
 - Support commercial et assistance personnalisée, crucial pour des configurations complexes et des environnements à grande échelle.
 
+### cAdvisor
+
+**cAdvisor (Container Advisor)** est un outil open-source développé par Google pour analyser les performances des conteneurs.
+
+**Avantages** :
+- Gratuit et open-source.
+- Installation et configuration simples.
+- Collecte des métriques sur l'utilisation des ressources (CPU, mémoire, réseau) des conteneurs en temps réel.
+- Prend en charge Docker et d'autres moteurs de conteneurs.
+- Intégration facile avec d'autres outils de monitoring et d'alerting.
+
+**Inconvénients** :
+- Fonctionnalités limitées par rapport à des solutions de monitoring plus complètes comme Datadog ou Sysdig.
+- Principalement axé sur le monitoring des ressources et non sur la sécurité ou la conformité.
+
+**Utilisation dans Kubernetes** :
+- Souvent utilisé comme une base pour collecter des métriques dans des environnements Kubernetes.
+- Peut être intégré avec Prometheus pour des capacités de monitoring plus avancées.
+
+Pour plus d'informations sur cAdvisor, vous pouvez visiter son dépôt GitHub.
+
 ## Tableau Comparatif des Meilleurs Abonnements et des Solutions Gratuites
 
-| **Critères**                   | **Prometheus + Grafana (Gratuit)** | **Datadog Enterprise**                        | **Sysdig Monitor Enterprise**                |
-|--------------------------------|------------------------------------|----------------------------------------------|----------------------------------------------|
-| **Coût**                       | Gratuit                            | $23/hôte/mois (annuel), $27/hôte/mois (mensuel) | $30/hôte/mois                                |
-| **Monitoring centralisé**      | Oui                                | Oui                                          | Oui                                          |
-| **Rétention des métriques**    | Personnalisable avec Thanos        | 15 mois                                      | Long terme                                   |
-| **Alertes**                    | Basique, personnalisable           | Basées sur l'IA                              | Avancées et basées sur des politiques        |
-| **Surveillance des processus** | Non                                | Oui, en temps réel                           | Oui                                          |
-| **Intégrations**               | Nombreuses avec exporters          | 600+ intégrations                            | Intégrations optimisées pour DevOps et conteneurs |
-| **Contrôles administratifs**   | Limité                             | Avancés                                      | Avancés                                      |
-| **SLA de disponibilité**       | Non spécifié                       | 99,9%                                        | Non spécifié                                 |
-| **Sécurité**                   | Personnalisable avec des outils tiers | Intégrations disponibles                     | Sysdig Secure intégré pour les conteneurs    |
-| **Conformité**                 | Personnalisable avec des outils tiers | Modules complémentaires                      | Intégrée                                     |
-| **Support**                    | Communautaire                      | Premium, assistance technique, SLA           | Support commercial et personnalisé           |
-| **Documentation et Communauté**| Large et active                    | Étendue et active                            | Détails pour les environnements conteneurisés|
+| **Critères**                   | **Prometheus + Grafana (Gratuit)** | **Datadog Enterprise**                        | **Sysdig Monitor Enterprise**                | **cAdvisor (Gratuit)**                        |
+|--------------------------------|------------------------------------|----------------------------------------------|----------------------------------------------|----------------------------------------------|
+| **Coût**                       | Gratuit                            | $23/hôte/mois (annuel), $27/hôte/mois (mensuel) | Devis personnalisé requis                    | Gratuit                                      |
+| **Monitoring centralisé**      | Oui                                | Oui                                          | Oui                                          | Non (limité aux métriques des conteneurs)    |
+| **Rétention des métriques**    | Personnalisable avec Thanos        | 15 mois                                      | Long terme                                   | Limitée                                      |
+| **Alertes**                    | Basique, personnalisable           | Basées sur l'IA                              | Avancées et basées sur des politiques        | Non (intégration nécessaire)                 |
+| **Surveillance des processus** | Non                                | Oui, en temps réel                           | Oui                                          | Non                                          |
+| **Intégrations**               | Nombreuses avec exporters          | 600+ intégrations                            | Intégrations optimisées pour DevOps et conteneurs | Oui, via Prometheus                          |
+| **Contrôles administratifs**   | Limité                             | Avancés                                      | Avancés                                      | Non                                          |
+| **SLA de disponibilité**       | Non spécifié                       | 99,9%                                        | Non spécifié                                 | Non spécifié                                 |
+| **Sécurité**                   | Personnalisable avec des outils tiers | Intégrations disponibles                     | Sysdig Secure intégré pour les conteneurs    | Non                                          |
+| **Conformité**                 | Personnalisable avec des outils tiers | Modules complémentaires                      | Intégrée                                     | Non                                          |
+| **Support**                    | Communautaire                      | Premium, assistance technique, SLA           | Support commercial et personnalisé           | Communautaire                                |
+| **Documentation et Communauté**| Large et active                    | Étendue et active                            | Détails pour les environnements conteneurisés | Large et active                              |
+
+
+#### Explication des Critères
+
+- **Coût** : Le montant à payer pour utiliser le service.
+- **Monitoring centralisé** : Capacité à centraliser le monitoring pour une vue unifiée de l'infrastructure.
+- **Rétention des métriques** : Durée pendant laquelle les métriques sont conservées pour l'analyse.
+- **Alertes** : Capacité à configurer des notifications en cas d'anomalies.
+- **Surveillance des processus** : Surveillance en temps réel des processus système et des applications.
+- **Intégrations** : Capacité à se connecter à d'autres outils et services.
+- **Contrôles administratifs** : Fonctions avancées de gestion des utilisateurs et des permissions.
+- **SLA de disponibilité** : Garantie de disponibilité du service.
+- **Sécurité** : Fonctionnalités de sécurité intégrées pour protéger les données et les applications.
+- **Conformité** : Capacités à répondre aux exigences réglementaires et de conformité.
+- **Support** : Niveau d'assistance technique fourni.
+- **Documentation et Communauté** : Qualité et quantité des ressources disponibles et de la communauté d'utilisateurs.
